@@ -1,0 +1,191 @@
+Program
+
+Statemets:
+Intrucciones|Asignaciones | Etiquetas| Saltos Condicionales| Lineas Vacias
+
+Implementar metodo ParseStatemet() que examina token actual y decide que statement es
+
+Instrucciones :
+
+SpawnList (int x, int y)
+-Verificar si el token es "Spawn"
+-Verificar que despues venga "("
+-Verificar expresion de x para obtener coordenada
+-Verificar token de ","
+-Verificar expresion de y para obtener coordenada
+-Verificar token ")"
+-Devolver nodo AST SpawnNode
+
+Color(string color)
+-Verificar si el token es "Color"
+-Verificar que despues venga "("
+-Verificar token con el color (string)
+-Verificar token ")"
+-Devolver nodo AST ColorNode
+
+Size(int k)
+-Verificar si el token es "Size"
+-Verificar que despues venga "("
+-Verificar expresion para size
+-Verificar token ")"
+-Devolver nodo AST SizeNode
+
+DrawLine (int dirX, int DirY, int Distance)
+-Verificar si el token es "DrawLine"
+-Verificar que despues venga "("
+-Verificar expresion de x para obtener coordenada
+-Verificar token de ","
+-Verificar expresion de y para obtener coordenada
+-Verificar token ","
+-Verificar expresion para obtener distancia
+-Verificar token ")"
+-Devolver nodo AST DrawLineNode
+
+DrawCircle (int dirX, int dirY, int radius)
+-Verificar si el token es "DrawCircle"
+-Verificar que despues venga "("
+-Verificar expresion de x para obtener coordenada
+-Verificar token de ","
+-Verificar expresion de y para obtener coordenada
+-Verificar token ","
+-Verificar expresion para obtener radio
+-Verificar token ")"
+-Devolver nodo AST DrawCircleNode
+
+DrawRectangle (int dirX, int dirY, int distance, int width, int heigth)
+-Verificar si el token es "DrawRectangle"
+-Verificar que despues venga "("
+-Verificar expresion de x para obtener coordenada
+-Verificar token de ","
+-Verificar expresion de y para obtener coordenada
+-Verificar token ","
+-Verificar expresion para obtener distancia
+-Verificar token ","
+-Verificar expresion para obtener width
+-Verificar token ","
+-Verificar expresion para obtner heigth
+-Verificar token ")"
+-Devolver nodo AST DrawRectangleNode
+
+Fill()
+-Verificar si el token es "Fill"
+-Verificar que despues venga "("
+-Verificar token ")"
+-Devolver nodo AST FillNode
+
+Asignaciones:
+-Verificar primero token Identifier
+-Guardar nombre de Identifier
+-Verificar token "<-"
+-Verificar la Expresion
+-Devolver node AST AssigmentNode con el nombre y la variable
+		Identifier <- "Expresion"
+
+Etiquetas(Label):
+-Verificar token de Identifier
+-Guardar token con nombre de identifier
+-Devolver node AST LabelNode
+
+Saltos Condicionales:
+-Verificar token GoTo
+-Verificar token "["
+-Verificar token Identifier y guardar nombre del token
+-Verificar "]"
+-Verificar "("
+-Verificar Boolean Expresion
+-Verificar")"
+-Devolver nodo AST ConditionalJumpNode
+	GoTo[label] (Boolean Expresion)
+
+Expresiones:
+Arithmetic Expression| Boolean Expression | String Expression
+
+Metodo ParseExpression()
+-Si tenemos un numero, un Identifier, una funcion o un parentesis, llamar a ParseArithmeticExpression
+-Si tenemos un true, false o un operador de comparacion llamar a ParseBooleanExpression
+-Si encuentra una cadena entre "", llama a ParseStringExpression
+
+Expresiones Aritmeticas:
+
+Arithmetic Expression -> Additive Expression
+
+Additive Expression -> MultiplicativeExpression (("+" | "-" ) MultiplicativeExpression ) *
+
+MultiplicativeExpression -> PowerExpression (("*" | "/" | "%") PowerExpression)*
+
+PowerExpression -> UnaryExpression("**" UnaryExpression)*
+
+UnaryExpression -> ("+"| "-") UnaryExpression | PrimaryExpression
+
+PrimaryExpression ->Number | Identifier | FuncionCall | "("ArithmeticExpression")"
+
+Implementacion:
+ParseArithmeticExpression() llama a ParseAdditiveExpression()
+
+ParseAdditiveExpression() maneja operadores + y -, llamando a ParseMultiplicativeExpression()
+
+ParseMultiplicativeExpression() maneja operadores *, / y %, llamando a ParsePowerExpression()
+
+ParsePowerExpression() maneja el operador **, llamando a ParseUnaryExpression()
+
+ParseUnaryExpression() maneja los operadores unarios + y -, o llama a ParsePrimaryExpression()
+
+ParsePrimaryExpression() maneja los elementos básicos: números, identificadores, llamadas a funciones o expresiones entre paréntesis
+
+Esto es para manejar precedencia de los operadores
+
+
+Expresiones Booleanas: 
+BooleanExpression -> OrExpression
+
+OrExpression -> AndExpression ("||" AndExpression ) *
+
+AndExpression -> ComparsionExpression ("&&" ComparisonExpression )*
+
+ComparisonExpression -> ArithmeticExpression - ComparisonOperator - ArithmeticExpression | BooleanLiteral | "("BooleanExpression")"
+
+ComparisonOperator -> "==" | ">=" | "<=" | "<" | ">"
+
+BooleanLiteral -> "true" | "false" 
+
+Expresiones de Cadenas :
+
+StringExpression -> String
+
+String -> '"'StringCharacter*'"
+
+StringCharacter -> cualquier caracter
+
+Funciones: 
+FunctionCall → FunctionName "(" FunctionArguments ")"
+
+FunctionName → "GetActualX" | "GetActualY" | "GetCanvasSize" | "GetColorCount" | "IsBrushColor" | "IsBrushSize" | "IsCanvasColor"
+
+FunctionArguments → ε | Expression ( "," Expression )*
+
+Implementacion:
+-Verificar token sea un nombre de funcion valido 
+- Guardar el nombre de la funcion
+-Verificar token "("
+-Parsear el primer argumento con ParseExpression()
+-Mientras el token siguiente sea una coma ",", seguir parseando argumentos
+-Verificar que el ultimo token sea ")"
+-Devolver nodo AST FunctionNode con el nombre de la funcion y la lista de argumentos
+
+Detalles de cada funcion:
+GetActualX -> "GetActualX" "("")"
+GetActualY -> "GetActualY" "("")"
+GetCanvasSize -> "GetCanvasSize" "("")"
+GetColorCount -> "GetColorCount" "("Identifier de color", "Expression", "Expression", "Expression","Expression")"
+IsBrushColor -> "IsBrushColor" "("Identifier de color")"
+IsBrushSize -> "IsBrushSize" "("Expression")"
+IsCanvasColor -> "IsCanvasColor" "("Identifier de color", "Expression", "Expression")"
+
+
+Literales y Terminales
+
+Number → Digit+ ( "." Digit+ )?
+Identifier → Letter ( Letter | Digit | "-" )*
+Letter → [a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]
+Digit → [0-9]
+

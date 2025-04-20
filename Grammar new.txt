@@ -1,0 +1,81 @@
+Program -> (Statement)*
+
+Statement -> Instruction | Assignment | Label 
+	* Implementar metodo ParseStatemet() que examina token actual y decide que statement es
+
+Label -> Identifier Program
+
+
+Assignment -> Identifier "<-" Expression
+
+
+Expression -> Arithmetic Expression | Boolean Expression | String Expression
+
+	Metodo ParseExpression()
+	-Si tenemos un numero, un Identifier, una funcion o un parentesis, llamar a ParseArithmeticExpression
+	-Si tenemos un true, false o un operador de comparacion llamar a ParseBooleanExpression
+	-Si encuentra una cadena entre "", llama a ParseStringExpression
+
+Arithmetic Expression -> Additive Expression
+
+Additive Expression -> MultiplicativeExpression (("+" | "-" ) MultiplicativeExpression ) *
+
+MultiplicativeExpression -> PowerExpression (("*" | "/" | "%") PowerExpression)*
+
+PowerExpression -> UnaryExpression("**" UnaryExpression)*
+
+UnaryExpression -> ("-")* PrimaryExpression
+
+PrimaryExpression ->Number | Identifier(variable) | FunctionCall | "("ArithmeticExpression")"
+
+	Implementacion:
+	ParseArithmeticExpression() llama a ParseAdditiveExpression()
+
+	ParseAdditiveExpression() maneja operadores + y -, llamando a ParseMultiplicativeExpression()
+
+	ParseMultiplicativeExpression() maneja operadores *, / y %, llamando a ParsePowerExpression()
+
+	ParsePowerExpression() maneja el operador **, llamando a ParseUnaryExpression()
+
+	ParseUnaryExpression() maneja los operadores unarios + y -, o llama a ParsePrimaryExpression()
+
+	ParsePrimaryExpression() maneja los elementos básicos: números, identificadores, llamadas a funciones o expresiones entre paréntesis
+
+	Esto es para manejar precedencia de los operadores
+
+BooleanExpression -> OrExpression
+
+OrExpression -> AndExpression ("||" AndExpression ) *
+
+AndExpression -> ComparsionExpression ("&&" ComparisonExpression )*
+
+ComparisonExpression -> ArithmeticExpression ("==" | ">=" | "<=" | "<" | ">") ArithmeticExpression | "("BooleanExpression")"
+
+
+
+FunctionCall → FunctionName "(" FunctionArguments ")"
+
+FunctionName → "GetActualX" | "GetActualY" | "GetCanvasSize" | "GetColorCount" | "IsBrushColor" | "IsBrushSize" | "IsCanvasColor"
+
+FunctionArguments → ε | Expression ( "," Expression )*
+
+	Detalles de cada funcion:
+	GetActualX -> "GetActualX" "("")"
+	GetActualY -> "GetActualY" "("")"
+	GetCanvasSize -> "GetCanvasSize" "("")"
+	GetColorCount -> "GetColorCount" "("Identifier de color", "Expression", "Expression", "Expression","Expression")"
+	IsBrushColor -> "IsBrushColor" "("Identifier de color")"
+	IsBrushSize -> "IsBrushSize" "("Expression")"
+	IsCanvasColor -> "IsCanvasColor" "("Identifier de color", "Expression", "Expression")"
+
+String Expression -> String
+
+Terminales :
+String
+Number
+Identifier
+
+Instruction -> InstructionName "("InstructionArgument ")" | "GoTo" "["Label"]" "("BooleanExpression")"
+InstructionName -> Todos los comandos
+InstructionArgument -> ε | Expression ( "," Expression )*
+
