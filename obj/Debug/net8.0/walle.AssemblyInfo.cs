@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("walle")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b1db22e685c2579dd0b19121a3cbb3be0224ed35")]
 [assembly: System.Reflection.AssemblyProductAttribute("walle")]
 [assembly: System.Reflection.AssemblyTitleAttribute("walle")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

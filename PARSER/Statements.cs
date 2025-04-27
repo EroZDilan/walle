@@ -32,12 +32,22 @@ public class LabelNode : Statement
 
 public class Instruction : Statement
 {
-    public Tipo Name {get; }
-    public List<Expression> Arguments {get; }
+    public string Name {get; }
+    public List<ExpressionNode> Arguments {get; }
 
-    public Instruction(Tipo name, List<Expression> arguments, int line, int column) : base(line, column)
+    public Instruction(string name, List<ExpressionNode> arguments, int line, int column) : base(line, column)
     {
         Name = name;
         Arguments = arguments;
+    }
+}
+
+public class FunctionCallStatement : Statement
+{
+    public FunctionCall FunctionCall { get; }
+
+    public FunctionCallStatement(FunctionCall functionCall, int line, int column) : base(line, column)
+    {
+        FunctionCall = functionCall;
     }
 }

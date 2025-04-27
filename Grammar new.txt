@@ -49,7 +49,7 @@ OrExpression -> AndExpression ("||" AndExpression ) *
 
 AndExpression -> ComparsionExpression ("&&" ComparisonExpression )*
 
-ComparisonExpression -> ArithmeticExpression ("==" | ">=" | "<=" | "<" | ">") ArithmeticExpression | "("BooleanExpression")"
+ComparisonExpression -> (ArithmeticExpression | BooleanLiteral) ("==" | ">=" | "<=" | "<" | ">") (ArithmeticExpression | BooleanLiteral) | "("BooleanExpression")" | BooleanLiteral
 
 
 

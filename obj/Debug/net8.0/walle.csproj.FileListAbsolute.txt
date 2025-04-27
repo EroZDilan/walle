@@ -12,3 +12,4 @@ C:\Users\Eros\Documents\Eros\walle\obj\Debug\net8.0\refint\walle.dll
 C:\Users\Eros\Documents\Eros\walle\obj\Debug\net8.0\walle.pdb
 C:\Users\Eros\Documents\Eros\walle\obj\Debug\net8.0\walle.genruntimeconfig.cache
 C:\Users\Eros\Documents\Eros\walle\obj\Debug\net8.0\ref\walle.dll
+C:\Users\Eros\Documents\Eros\walle\obj\Debug\net8.0\walle.sourcelink.json
