@@ -8,9 +8,9 @@ i <- 0
 
  loop-1
  DrawLine(1, 0, 1)
- i <- i + 1
+ i <- i + 5
  is-brush-color-blue <- IsBrushColor("Blue")
- Goto [loop-ends-here] (is-brush-color-blue == 1)
+ GoTo [loop-ends-here] (is-brush-color-blue == 1)
  GoTo [loop1] (i < 10)
 
  Color("Blue")
